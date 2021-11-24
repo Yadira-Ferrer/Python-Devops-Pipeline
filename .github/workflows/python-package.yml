@@ -32,11 +32,11 @@ jobs:
     - name: Check docker installed or not
       run: docker run hello-world
     - name: Push to docker hub
-      uses: docker/setup-buildx-action@v1.6.0
+      uses: docker/setup-buildx-action@v1
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: docker push yadiraferrer95/pydevopsproject
+        repository: yadiraferrer95/pydevopsproject
         tag_with_ref: true
         
       
