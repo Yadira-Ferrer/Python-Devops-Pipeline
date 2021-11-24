@@ -32,14 +32,9 @@ jobs:
     - name: Check docker installed or not
       run: docker run hello-world
     - name: Push to docker hub
-      uses: opspresso/action-docker@master
-      with:
-        args: --docker
-      env:
-        USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        TAG_NAME: "v0.0.1"
-        REGISTRY: "yadiraferrer95/pydevopsproject"
-        BUILDX: "true"
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "yadiraferrer95" --password-stdin
+        docker image build -t yadiraferrer95/pydevopsproject:v1 .
+        docker push yadiraferrer95/pydevopsproject:v1
         
       
