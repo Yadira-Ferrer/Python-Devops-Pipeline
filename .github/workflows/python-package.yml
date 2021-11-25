@@ -13,8 +13,8 @@ jobs:
     
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.8", "3.9", "3.10"]
+        platform: [ubuntu-latest]
+        python-version: ["3.8"]
     runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v2
@@ -29,3 +29,12 @@ jobs:
     - name: Test with pytest
       run: |
         pytest test.py
+    - name: Check docker installed or not
+      run: docker run hello-world
+    - name: Push to docker hub
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "yadiraferrer95" --password-stdin
+        docker image build -t yadiraferrer95/pydevopsproject:v1 .
+        docker push yadiraferrer95/pydevopsproject:v1
+        
+      
